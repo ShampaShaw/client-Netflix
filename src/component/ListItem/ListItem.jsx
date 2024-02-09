@@ -7,22 +7,25 @@ import { Link } from 'react-router-dom';
 function ListItem({ index,item }) {
   const [isHovered, setIsHovered] = useState(false);
   const [movie,setMovie] = useState({})
+  const server = process.env.SERVER_URL || "http://localhost:5000";  
 
   useEffect(() => {
     const getMovie = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/movies/find/' + item, {
+        const res = await axios.get(`${server}/api/movies/find/` + item
+        ,{
           headers: {
             token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODczNTkyNDJmYWVlODE3MzlhYWJmNyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwNzMyNDQxNywiZXhwIjoxNzA3NzU2NDE3fQ.DqTtvoXD8WFZIWUSN0iB5QIvtZSYCZ2Rti4jCqVv8Js"
           }
-        })
-        setMovie(res.data[0]);
+        }
+        )
+        setMovie(res.data);
       } catch (err) {
         console.log(err);
       }
     }
     getMovie()
-  }, [item])
+  }, [item, server])
   
 
   return (

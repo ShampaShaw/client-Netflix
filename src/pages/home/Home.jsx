@@ -29,12 +29,12 @@ const Home = ({type}) => {
     <div className='home'>
         <Navbar/>
         <Featured type={type}/>
-        // Inside the map function in your Home component
-          {lists.map((list, index) => (
+        {/* Inside the map function in your Home component */}
+        {lists.map((list, index) => {
+          return (
             <List key={index} list={list} />
-          ))}
-
-      
+          );
+        })}
     </div>
   )
 }

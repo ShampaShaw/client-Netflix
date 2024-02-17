@@ -6,13 +6,13 @@ import axios from 'axios';
 
 const Featured = ({type}) => {
   const [content,setContent] = useState({}) //to fetch random movie
-
+  console.log(content)
   useEffect(() => {
     const getRandomContent = async () => {
       try{
         const res = await axios.get(`http://localhost:5000/api/movies/random?type=${type}`,{
           headers: {
-            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yzk0YmUyOWY0NjhiZTQ1MDhjNTQ0MSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MDc2OTEwMjUsImV4cCI6MTcwODEyMzAyNX0._tuyxj467f6fkGe_3stNjhLFVslJxinA5LuN25on6qg"
+            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODczNTkyNDJmYWVlODE3MzlhYWJmNyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwODE1NTE5NiwiZXhwIjoxNzEwNzQ3MTk2fQ.i3XAR8xa92OypUnjubLEPrFUuaYLiQHYo3LDM8ungxo"
           }
         })
         setContent(res.data[0])

@@ -29,7 +29,7 @@ const Home = ({type}) => {
   return (
     <div className='home'>
         <Navbar/>
-        <Featured type={type}/>
+        <Featured type={type} setGenre={setGenre}/>
         {/* Inside the map function in your Home component */}
         {lists.map((list, index) => {
           return (

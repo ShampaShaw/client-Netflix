@@ -4,7 +4,7 @@ import { InfoOutlined, PlayArrow } from '@material-ui/icons'; // Importing Mater
 import { useState } from 'react';
 import axios from 'axios';
 
-const Featured = ({type}) => {
+const Featured = ({type,setGenre}) => {
   const [content,setContent] = useState({}) //to fetch random movie
   console.log(content)
   useEffect(() => {
@@ -31,8 +31,8 @@ const Featured = ({type}) => {
         <div className='category'>
           <span>{type === 'movies' ? 'Movies' : 'Series'}</span>
           {/* Dropdown for selecting genre */}
-          <select name='genre' id='genre'>
-            <option>Genre</option>
+          <select name='genre' id='genre' onChange={(e) => setGenre(e.target.value)}>
+          <option>Genre</option>
             {/* Options for different genres */}
             <option value='adventure'>Adventure</option>
             <option value='comedy'>Comedy</option>

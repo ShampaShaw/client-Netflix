@@ -1,3 +1,5 @@
+@import "../../app.css";
+
 .navbar{
     width: 100%;
     color: white;
@@ -24,11 +26,25 @@
             img{
                 height: 25px;
                 margin-right: 40px;
+
+                @include mobile{
+                    display: none;
+                }
             }
 
             span{
                 margin-right: 20px;
                 cursor: pointer;
+
+                @include table{
+                    display: none;
+                }
+
+                &.navbarmainLinks{
+                    @include table{
+                        display: block;
+                    }
+                }
             }
         }
 

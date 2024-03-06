@@ -1,15 +1,40 @@
-import React, { useState } from 'react'
-import './navbar.css'
-import { ArrowDropDown, Notifications, Search } from '@material-ui/icons'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import './navbar.css';
+import { ArrowDropDown, Notifications, Search } from '@material-ui/icons';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-    const [isScrolled,setIsScrolled] = useState(false);  /*for the black color at the top of the navbar*/
+    const [isScrolled, setIsScrolled] = useState(false);
+    const navigate = useNavigate(); 
 
-    window.onscroll = () =>{
-        setIsScrolled(window.scrollY === 0 ? false : true)
-        return () => (window.onscroll = null)
-    }
+    window.onscroll = () => {
+        setIsScrolled(window.scrollY === 0 ? false : true);
+        return () => (window.onscroll = null);
+    };
+
+    const handleLogout = () => {
+        fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                localStorage.removeItem('accessToken');
+                navigate.push('/login');
+                alert('Logout successful');
+            } else {
+                alert('Logout failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error logging out:', error);
+            alert('Error logging out');
+        });
+    };
+
   return (
     <div className={isScrolled ? "navbar scrolled" : "navbar"}> 
        <div className='container'>
@@ -42,7 +67,7 @@ const Navbar = () => {
                     <ArrowDropDown className='icon'/>
                     <div className='options'>
                         <span>Settings</span>
-                        <span>Logout</span>
+                        <span onClick={handleLogout}>Logout</span>
                     </div>
                 </div>
             </div>

@@ -5,18 +5,22 @@ import Navbar from '../../component/navbar/Navbar'
 import Featured from '../../component/featured/Featured'
 import List from '../../component/list/List'
 import axios from 'axios'
+import { useAuth } from '../../Context/authContext/authContext'
 
 const Home = ({type}) => {
   const [lists,setLists] = useState([])
   const [genre,setGenre] = useState(null)
-
+  const { user } = useAuth()
+  const serverURL = process.env.SERVER_URL || 'http://localhost:5000';
+  console.log(user)
+  
   useEffect(() => {
     const getRandomLists = async () => {
       try{
-        const res = await axios.get(`http://localhost:5000/api/lists/${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`
+        const res = await axios.get(`${serverURL}/api/lists/${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`
          ,{
           headers: {
-            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODczNTkyNDJmYWVlODE3MzlhYWJmNyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwODE1NTE5NiwiZXhwIjoxNzEwNzQ3MTk2fQ.i3XAR8xa92OypUnjubLEPrFUuaYLiQHYo3LDM8ungxo"
+            token: `Bearer ${user?.accessToken}`
           }
         })
         setLists(res.data)
@@ -25,7 +29,7 @@ const Home = ({type}) => {
       }
     }
     getRandomLists()
-  },[type,genre])
+  },[type,genre, serverURL, user?.accessToken])
   return (
     <div className='home'>
         <Navbar/>

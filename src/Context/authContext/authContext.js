@@ -18,7 +18,9 @@ export const AuthProvider = ({ children }) => {
                 password: password
             });
             setUser(response.data);
-            return response.data.accessToken;
+            console.log("User logged in", response.data);
+            return response.data;
+
         } catch (error) {
             throw new Error(error.response.data.message);
         }

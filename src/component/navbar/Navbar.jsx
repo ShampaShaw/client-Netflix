@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import './navbar.css';
-import { ArrowDropDown, Notifications, Search } from '@material-ui/icons';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+import './navbar.css'
+import { ArrowDropDown, Notifications, Search } from '@material-ui/icons'
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../authContext/AuthContext'
+import { logout } from '../../authContext/AuthAction';
 
 const Navbar = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const navigate = useNavigate(); 
+    const [isScrolled,setIsScrolled] = useState(false);  /*for the black color at the top of the navbar*/
+    const {dispatch} = useContext(AuthContext);
 
     window.onscroll = () => {
         setIsScrolled(window.scrollY === 0 ? false : true);
@@ -47,10 +49,10 @@ const Navbar = () => {
                     <span>Homepage</span>
                 </Link>
                 <Link to='/Series' className='link'>
-                    <span>Series</span>
+                    <span className='navbarmainLinks'>Series</span>
                 </Link>
                 <Link to='/movies' className='link'>
-                    <span>Movies</span>
+                    <span className='navbarmainLinks'>Movies</span>
                 </Link>
                 <span>New ans Popular</span>
                 <span>My List</span>
@@ -67,7 +69,7 @@ const Navbar = () => {
                     <ArrowDropDown className='icon'/>
                     <div className='options'>
                         <span>Settings</span>
-                        <span onClick={handleLogout}>Logout</span>
+                        <span onClick={() => dispatch(logout())}>Logout</span>
                     </div>
                 </div>
             </div>

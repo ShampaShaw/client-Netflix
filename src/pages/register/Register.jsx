@@ -27,8 +27,7 @@ const Register = () => {
     const handleUsernameSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
         try {
-            setUsername(usernameRef.current.value);
-            setPassword(passwordRef.current.value);
+            
             const response = await axios.post(`${serverURL}/api/auth/register`, {
                 email: email,
                 password: password,

@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import './login.css';
 import { useAuth } from '../../Context/authContext/authContext';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../component/loader/Loader';
 
 const Login = () => {
     const { login } = useAuth();
@@ -56,7 +57,7 @@ const Login = () => {
                     <input type='email' placeholder='Email or Phone Number' ref={emailRef} />
                     <input type='password' placeholder='Password' ref={passwordRef} />
                     <button className='loginButton' type='submit' disabled={loading}>
-                        {loading ? "Logging in..." : "Sign In"}
+                        {loading ? <Loader /> : "Sign In"} {/* Use Loader component when loading */}
                     </button>
                     <span>New to Netflix? <b>Sign up now.</b></span>
 

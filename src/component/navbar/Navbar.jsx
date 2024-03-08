@@ -1,12 +1,14 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import './navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../authContext/AuthContext';
 import { Bell, CircleUser, Search } from 'lucide-react';
+import { logout } from '../../authContext/AuthAction';
+import logo from '../../assets/logo.png';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const { user, logout } = useContext(AuthContext);
+    const { user, dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
     const dropdownRef = useRef(null); // Ref for dropdown
 
@@ -17,9 +19,9 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            logout();
+            dispatch(logout());
             localStorage.removeItem('accessToken');
-            navigate('/login');
+            navigate('/');
             alert('Logout successful');
         } catch (error) {
             console.error('Error logging out:', error);
@@ -36,17 +38,19 @@ const Navbar = () => {
             <div className='container'>
                 <div className='left'>
                     <img
-                        src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Dfnefr.png/120px-Dfnefr.png'
+                        className='logo'
+                        onClick={() => navigate('/home')}
+                        src={logo}
                         alt=''
                     />
+                </div>
+                <div className='center'>
                     <Link to='/series' className='link'>
-                        <span className='navbarmainLinks'>Series</span>
+                        <span className='navbarmainLinks'>SERIES</span>
                     </Link>
                     <Link to='/movies' className='link'>
-                        <span className='navbarmainLinks'>Movies</span>
+                        <span className='navbarmainLinks'>MOVIES</span>
                     </Link>
-                    <span>New and Popular</span>
-                    <span>My List</span>
                 </div>
                 <div className='right'>
                     <Search className='icon' />
@@ -59,7 +63,7 @@ const Navbar = () => {
                         )}
                         <div ref={dropdownRef} className='options dropdown'>
                             <span className='option-text'>
-                                @{user.username}
+                                {user.username}
                             </span>
                             <span onClick={() => navigate('/account')} className='option'>
                                 Account

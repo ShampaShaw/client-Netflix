@@ -13,7 +13,11 @@ const Login = () => {
     const passwordRef = useRef();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const { dispatch } = useContext(AuthContext); // Get dispatch function from context
+    const { dispatch } = useContext(AuthContext); 
+
+    const handleOnClick = () => {
+        navigate('/register');
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -22,7 +26,7 @@ const Login = () => {
 
         // Basic validation
         if (!email || !password) {
-            setError("Email and password are required");
+            setError("Email and password are required!!");
             return;
         }
 
@@ -33,7 +37,7 @@ const Login = () => {
             await login({ email, password }, dispatch); // Pass email and password as userCredentials
             // If successful, alert and navigate to "/"
             alert("Login successful!");
-            navigate('/');
+            navigate('/home');
         } catch (error) {
             console.log(error.message);
             alert(error.message); // Alert the error message
@@ -57,15 +61,16 @@ const Login = () => {
             </div>
             <div className='container'>
                 <form onSubmit={handleLogin}>
-                    <h1>Sign In</h1>
-                    <input type='email' placeholder='Email or Phone Number' ref={emailRef} />
-                    <input type='password' placeholder='Password' ref={passwordRef} />
-                    <button className='loginButton' type='submit' disabled={loading}>
-                        {loading ? <Loader /> : "Sign In"} {/* Use Loader component when loading */}
-                    </button>
-                    <span>New to Netflix? <b>Sign up now.</b></span>
-
+                    <h1>SIGN IN</h1>
+                    <input type='email' placeholder='Email' autoComplete="true" ref={emailRef} />
+                    <input type='password' placeholder='Password' autoComplete='true'
+                     ref={passwordRef} />
                     {error && <span className="error">{error}</span>}
+                    <button className='loginButton' type='submit' disabled={loading}>
+                        {loading ? <Loader /> : "Sign In"} 
+                    </button>
+                    <span>New to Netflix? <b onClick={handleOnClick}>Sign up now.</b></span>
+
                 </form>
             </div>
         </div>

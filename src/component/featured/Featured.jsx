@@ -3,12 +3,13 @@ import "./featured.css"; // Importing styles from 'featured.css'
 import { InfoOutlined, PlayArrow } from '@material-ui/icons'; // Importing Material-UI icons
 import { useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../Context/authContext/authContext';
+import { AuthContext } from '../../authContext/AuthContext';
+import { useContext } from 'react';
 
 const Featured = ({type,setGenre}) => {
   const [content,setContent] = useState({}) //to fetch random movie
   console.log(content)
-  const { user } = useAuth()
+  const { user } = useContext(AuthContext)
   const serverURL = process.env.SERVER_URL || 'http://localhost:5000';
 
   useEffect(() => {

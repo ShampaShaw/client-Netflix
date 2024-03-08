@@ -1,9 +1,12 @@
 @import "../../app.css";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gothic&display=swap');
+
 
 .navbar{
     width: 100%;
     color: white;
     font-size: 14px;
+    font-family: "Noto Sans Gothic", sans-serif;
     position: fixed;
     top: 0;
     z-index: 999;  /*dont wanna see navbar over this index*/
@@ -54,16 +57,26 @@
 
             .icon{
                 margin: 0px 15px;
+                height: 25px;
+                width: 25px;
+                object-fit: cover;
                 cursor: pointer;
             }
             img{
                 width: 30px;
                 height: 30px;
-                border-radius: 5px;
+                border-radius: 50%;
                 object-fit: cover;
                 cursor: pointer;
             }
-
+            .icon-profile{
+                margin: 0px 15px;
+                color: aliceblue;
+                height: 25px;
+                width: 25px;
+                object-fit: cover;
+                cursor: pointer;
+            }
             .profile{
                 .options{
                     display: none;

@@ -5,50 +5,35 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Watch from './pages/watch/Watch';
-import { AuthProvider, useAuth } from './Context/authContext/authContext';
+import { AuthContextProvider, AuthContext } from './authContext/AuthContext';
 import Loader from './component/loader/Loader';
+import { useContext } from 'react';
 
 const App = () => {
-  // Use the useAuth hook to access the user and login/logout functions
-  const { user, login } = useAuth();
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Check if the user is authenticated
-    const isAuthenticated = user && user.isAuthenticated;
-    // If not authenticated and there's no accessToken in localStorage, navigate to the login page
-    if (!isAuthenticated && !localStorage.getItem('accessToken')) {
-      setLoading(false);
-    }
-    // If authenticated, set loading to false
-    setLoading(false);
-  }, [user]);
 
-  // If loading, show loading component
-  if (loading) {
-    return <Loader />;
-  }
+  const { isFetching, user } = useContext(AuthContext)
+  console.log(user, isFetching)
 
   return (
-    <AuthProvider>
+    <AuthContextProvider>
       <Router>
         <Routes>
           <Route
             path="/"
-            element={user && user.isAuthenticated ? <Home /> : <Navigate to="/login" />}
+            element={isFetching ? <Loader /> : <Home />}
           />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          {user && user.isAuthenticated && (
+          
             <>
               <Route path="/movies" element={<Home type='movie' />} />
               <Route path="/series" element={<Home type='series' />} />
               <Route path="/watch" element={<Watch />} />
             </>
-          )}
         </Routes>
       </Router>
-    </AuthProvider>
+    </AuthContextProvider>
   );
 }
 

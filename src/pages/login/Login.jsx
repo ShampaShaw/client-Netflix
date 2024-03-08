@@ -1,16 +1,19 @@
 import React, { useRef, useState } from 'react';
 import './login.css';
-import { useAuth } from '../../Context/authContext/authContext';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../../authContext/apiCalls.js';
 import Loader from '../../component/loader/Loader';
+import { AuthContext } from '../../authContext/AuthContext.js';
+import { useContext } from 'react';
+
 
 const Login = () => {
-    const { login } = useAuth();
     const navigate = useNavigate();
     const emailRef = useRef();
     const passwordRef = useRef();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const { dispatch } = useContext(AuthContext); // Get dispatch function from context
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -26,13 +29,14 @@ const Login = () => {
         try {
             setError(null);
             setLoading(true);
-            // Attempt login
-            await login(email, password);
+            // Call login function from AuthAction
+            await login({ email, password }, dispatch); // Pass email and password as userCredentials
             // If successful, alert and navigate to "/"
             alert("Login successful!");
             navigate('/');
         } catch (error) {
-            setError(error.message);
+            console.log(error.message);
+            alert(error.message); // Alert the error message
             // If unsuccessful, alert the error
             alert("Login failed. Please check your credentials and try again.");
         } finally {

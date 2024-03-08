@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react'
-import './navbar.css'
-import { ArrowDropDown, Notifications, Search } from '@material-ui/icons'
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import './navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../authContext/AuthContext'
-import { logout } from '../../authContext/AuthAction';
+import { AuthContext } from '../../authContext/AuthContext';
+import { Bell, CircleUser, Search } from 'lucide-react';
 
 const Navbar = () => {
-    const [isScrolled,setIsScrolled] = useState(false);  /*for the black color at the top of the navbar*/
-    const { dispatch } = useContext(AuthContext);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
+    const dropdownRef = useRef(null); // Ref for dropdown
 
     window.onscroll = () => {
         setIsScrolled(window.scrollY === 0 ? false : true);
@@ -17,7 +17,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            dispatch(logout());
+            logout();
             localStorage.removeItem('accessToken');
             navigate('/login');
             alert('Logout successful');
@@ -27,17 +27,18 @@ const Navbar = () => {
         }
     };
 
+    const toggleDropdown = () => {
+        dropdownRef.current.classList.toggle('show');
+    };
+
     return (
-        <div className={isScrolled ? "navbar scrolled" : "navbar"}> 
+        <div className={isScrolled ? 'navbar scrolled' : 'navbar'}>
             <div className='container'>
                 <div className='left'>
                     <img
                         src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Dfnefr.png/120px-Dfnefr.png'
                         alt=''
                     />
-                    <Link to='/' className='link'>
-                        <span>Homepage</span>
-                    </Link>
                     <Link to='/series' className='link'>
                         <span className='navbarmainLinks'>Series</span>
                     </Link>
@@ -48,24 +49,32 @@ const Navbar = () => {
                     <span>My List</span>
                 </div>
                 <div className='right'>
-                    <Search className='icon'/>
-                    <span>KID</span>
-                    <Notifications className='icon'/>
-                    <img
-                        src='https://s3-ap-south-1.amazonaws.com/ricedigitals3bucket/AUPortalContent/2020/06/27062349/webseries.jpg' 
-                        alt=''
-                    />
+                    <Search className='icon' />
+                    <Bell className='icon' />
                     <div className='profile'>
-                        <ArrowDropDown className='icon'/>
-                        <div className='options'>
-                            <span>Settings</span>
-                            <span onClick={handleLogout}>Logout</span>
+                        {user.profilePic === '' ? (
+                            <CircleUser className='icon-profile' onClick={toggleDropdown} />
+                        ) : (
+                            <img src={user.profilePic} alt='Profile' onClick={toggleDropdown} />
+                        )}
+                        <div ref={dropdownRef} className='options dropdown'>
+                            <span className='option-text'>
+                                @{user.username}
+                            </span>
+                            <span onClick={() => navigate('/account')} className='option'>
+                                Account
+                            </span>
+
+                            
+                            <span onClick={handleLogout} className='option'>
+                                Logout
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Navbar;

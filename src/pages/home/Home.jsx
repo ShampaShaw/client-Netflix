@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { AcUnit } from '@material-ui/icons'
 import './home.css'
 import Navbar from '../../component/navbar/Navbar'
 import Featured from '../../component/featured/Featured'
 import List from '../../component/list/List'
 import axios from 'axios'
+import { AuthContext } from '../../authContext/AuthContext'
+import { useContext } from 'react'
 
 const Home = ({type}) => {
   const [lists,setLists] = useState([])
   const [genre,setGenre] = useState(null)
-
+  const {user}= useContext(AuthContext)
+  const serverURL = process.env.SERVER_URL || 'http://localhost:5000';
   useEffect(() => {
     const getRandomLists = async () => {
       try{
-        const res = await axios.get(`http://localhost:5000/api/lists/${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`
+        const res = await axios.get(`${serverURL}/api/lists/${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`
          ,{
           headers: {
-            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODczNTkyNDJmYWVlODE3MzlhYWJmNyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwODE1NTE5NiwiZXhwIjoxNzEwNzQ3MTk2fQ.i3XAR8xa92OypUnjubLEPrFUuaYLiQHYo3LDM8ungxo"
+            token: `Bearer ${user?.accessToken}`
           }
         })
         setLists(res.data)
@@ -25,11 +27,11 @@ const Home = ({type}) => {
       }
     }
     getRandomLists()
-  },[type,genre])
+  },[type,genre, user?.accessToken, serverURL])
   return (
     <div className='home'>
         <Navbar/>
-        <Featured type={type} setGenre={setGenre}/>
+        <Featured type={type}/>
         {/* Inside the map function in your Home component */}
         {lists.map((list, index) => {
           return (

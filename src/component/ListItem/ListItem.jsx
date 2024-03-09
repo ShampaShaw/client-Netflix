@@ -3,29 +3,33 @@ import './listItem.css';
 import axios from 'axios';
 import { Add, PlayCircleFilled, ThumbDownAltOutlined, ThumbUpAltOutlined } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../authContext/AuthContext';
+import { useContext } from 'react';
 
 function ListItem({ index,item }) {
   const [isHovered, setIsHovered] = useState(false);
   const [movie,setMovie] = useState({})
-  const server = process.env.SERVER_URL || "http://localhost:5000";  
+  const serverURL = process.env.SERVER_URL || "http://localhost:5000";  
+  const { user } = useContext(AuthContext)
 
   useEffect(() => {
     const getMovie = async () => {
       try {
-        const res = await axios.get(`${server}/api/movies/find/` + item
+        const res = await axios.get(`${serverURL}/api/movies/find/` + item
         ,{
           headers: {
-            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODczNTkyNDJmYWVlODE3MzlhYWJmNyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwODE1NTE5NiwiZXhwIjoxNzEwNzQ3MTk2fQ.i3XAR8xa92OypUnjubLEPrFUuaYLiQHYo3LDM8ungxo"
+            token: `Bearer ${user?.accessToken}`
           }
         }
         )
         setMovie(res.data);
+        console.log("listitem:", user.accessToken, res.data);
       } catch (err) {
         console.log(err);
       }
     }
     getMovie()
-  }, [item, server])
+  }, [item, serverURL, user?.accessToken])
   
 
   return (

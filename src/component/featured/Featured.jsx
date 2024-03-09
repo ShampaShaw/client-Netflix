@@ -3,16 +3,21 @@ import "./featured.css"; // Importing styles from 'featured.css'
 import { InfoOutlined, PlayArrow } from '@material-ui/icons'; // Importing Material-UI icons
 import { useState } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../../authContext/AuthContext';
+import { useContext } from 'react';
 
 const Featured = ({type,setGenre}) => {
   const [content,setContent] = useState({}) //to fetch random movie
   console.log(content)
+  const { user } = useContext(AuthContext)
+  const serverURL = process.env.SERVER_URL || 'http://localhost:5000';
+
   useEffect(() => {
     const getRandomContent = async () => {
       try{
-        const res = await axios.get(`http://localhost:5000/api/movies/random?type=${type}`,{
+        const res = await axios.get(`${serverURL}/api/movies/random?type=${type}`,{
           headers: {
-            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODczNTkyNDJmYWVlODE3MzlhYWJmNyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwODE1NTE5NiwiZXhwIjoxNzEwNzQ3MTk2fQ.i3XAR8xa92OypUnjubLEPrFUuaYLiQHYo3LDM8ungxo"
+            token: `Bearer ${user?.accessToken}` // Access token for authentication
           }
         })
         setContent(res.data[0])
@@ -21,7 +26,7 @@ const Featured = ({type,setGenre}) => {
       }
     }
     getRandomContent()
-  },[type])
+  },[type, serverURL, user?.accessToken])
 
   console.log(content)
   return (

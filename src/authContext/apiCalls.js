@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { loginFailure,loginStart,loginSuccess } from './AuthAction'
-const server = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000/api/'
+const server = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'
 
 export const login = async (userCredentials, dispatch) => {
     dispatch(loginStart())
     try {
-        const res = await axios.post(`${server}auth/login`, userCredentials)
+        const res = await axios.post(`${server}/api/auth/login`, userCredentials)
+        console.log(res.data)
         dispatch(loginSuccess(res.data))
     } catch (err) {
         dispatch(loginFailure())

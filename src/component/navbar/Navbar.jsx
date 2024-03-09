@@ -32,7 +32,7 @@ const Navbar = () => {
     const toggleDropdown = () => {
         dropdownRef.current.classList.toggle('show');
     };
-
+    console.log(user)
     return (
         <div className={isScrolled ? 'navbar scrolled' : 'navbar'}>
             <div className='container'>
@@ -56,7 +56,7 @@ const Navbar = () => {
                     <Search className='icon' />
                     <Bell className='icon' />
                     <div className='profile'>
-                        {user.profilePic === '' ? (
+                        {user.profilePic === "" ? (
                             <CircleUser className='icon-profile' onClick={toggleDropdown} />
                         ) : (
                             <img src={user.profilePic} alt='Profile' onClick={toggleDropdown} />

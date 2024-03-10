@@ -1,6 +1,6 @@
 import React from 'react';
 import './watch.css';
-import { ArrowBackOutlined } from '@material-ui/icons';
+import { MoveLeft } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Watch = () => {
@@ -8,10 +8,10 @@ const Watch = () => {
   const movie = location.movie;
   return (
     <div className='watch'>
-    <Link to='/'>
+    <Link to='/home'>
       <div className='back'>
-        <ArrowBackOutlined />
-        Home
+        <MoveLeft  />
+         Go Back
       </div>
     </Link>
       <video className='video' autoPlay controls src={movie?.video} alt='sunset video' />

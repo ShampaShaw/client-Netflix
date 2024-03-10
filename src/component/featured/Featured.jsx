@@ -52,11 +52,11 @@ const Featured = ({type,setGenre}) => {
         alt=''
       />
       <div className='info'>
-        {/* Additional image and description */}
+        {/* Additional image and description
         <img
           src={content.imgTitle}
           alt=''
-        />
+        /> */}
         <span className='desc'>
           {content.desc}
         </span>

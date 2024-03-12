@@ -1,0 +1,60 @@
+.my-accounts-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.username {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.actions button {
+    margin-right: 10px;
+}
+
+.movie-list {
+    margin-top: 30px;
+}
+
+.movie-list h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.movie-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.movie-list ul li {
+    margin-bottom: 5px;
+}
+
+.edit-btn,
+.delete-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    background-color: #0056b3;
+}

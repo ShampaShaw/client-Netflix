@@ -30,10 +30,10 @@ const Register = () => {
             
             const response = await axios.post(`${serverURL}/api/auth/register`, {
                 email: email,
-                password: password,
+                password: passwordRef.current.value,
                 username: usernameRef.current.value
             });
-            navigate('/login');
+            navigate('/');
             console.log(response.data);
         } catch (error) {
             setError(error.response.data.message);
@@ -59,13 +59,13 @@ const Register = () => {
                 <p>Ready to watch</p>
                 {!email ? (
                     <form className='input'>
-                        <input type='email' placeholder='email address' ref={emailRef}/>
+                        <input type='email' placeholder='email address' ref={emailRef} autoComplete='email'/>
                         <button className='registerButton' onClick={handleStart}>Get started</button>
                     </form>
                 ) : (
                     <form className='input'>
-                        <input type='password' placeholder='Password' ref={passwordRef}/>
-                        <input type='text' placeholder='Username' ref={usernameRef}/>
+                    <input type='text' placeholder='Username' ref={usernameRef}/>
+                        <input type='password' placeholder='Password' ref={passwordRef} autoComplete='current-password'/>
                         <button className='registerButton' onClick={(e) => handleUsernameSubmit(e)}>Start</button>
                     </form>
                 )}

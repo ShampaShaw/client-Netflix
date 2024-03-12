@@ -1,9 +1,9 @@
 @import '../../app.css';
-.featured{
+.featured {
     height: 90vh;
     position: relative;
 
-    .category{
+    .category {
         position: absolute;
         top: 80px;
         left: 50px;
@@ -13,7 +13,7 @@
         display: flex;
         align-items: center;
 
-        select{
+        select {
             cursor: pointer;
             background-color: var(--main-color);
             border: 1px solid white;
@@ -23,13 +23,26 @@
         }
     }
 
-    img{
+    img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        position: relative;
+        -webkit-mask-image: linear-gradient(black, transparent);
+  mask-image: linear-gradient(black, transparent);
     }
 
-    .info{
+    img::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 20%; /* Adjust the height of the fading effect */
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)); /* Gradient overlay */
+    }
+
+    .info {
         width: 25%;
         position: absolute;
         left: 50px;
@@ -38,11 +51,11 @@
         display: flex;
         flex-direction: column;
 
-        img{
+        img {
             width: 60vw;
         }
 
-        .desc{
+        .desc {
             margin: 20px 0px;
 
             @include mobile {
@@ -50,10 +63,10 @@
             }
         }
 
-        .buttons{
+        .buttons {
             display: flex;
 
-            button{
+            button {
                 padding: 10px 20px;
                 border: none;
                 border-radius: 5px;
@@ -64,17 +77,17 @@
                 margin-right: 10px;
                 cursor: pointer;
 
-                &.play{
+                &.play {
                     background-color: white;
                     color: var(--main-color);
                 }
 
-                &.more{
+                &.more {
                     background-color: rgb(105, 105, 97);
                     color: white;
                 }
 
-                span{
+                span {
                     margin-left: 5px;
                 }
             }

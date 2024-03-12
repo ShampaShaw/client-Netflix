@@ -23,7 +23,7 @@ function ListItem({ index,item }) {
         }
         )
         setMovie(res.data);
-        console.log("listitem:", user.accessToken, res.data);
+        // console.log("listitem:", user.accessToken, res.data);
       } catch (err) {
         console.log(err);
       }

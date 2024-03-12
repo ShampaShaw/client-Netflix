@@ -28,7 +28,7 @@ const Featured = ({type,setGenre}) => {
     getRandomContent()
   },[type, serverURL, user?.accessToken])
 
-  console.log(content)
+  console.log("Content: ", content)
   return (
     <div className='featured'>
       {/* Conditional rendering based on the 'type' prop */}

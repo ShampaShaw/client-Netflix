@@ -22,7 +22,7 @@ A step by step series of examples that tell you how to get a development environ
 1. Clone the repository:
 
 ```
-git clone https://github.com/your-username/netflix-clone.git
+git clone https://github.com/ShampaShaw/netflix-clone.git
 ```
 
 2. Install dependencies:
@@ -85,16 +85,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Your Name** - *Initial work* - [YourGitHubUsername](https://github.com/YourGitHubUsername)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc.
+* **Shampa Shaw** - *Initial work* - [Shampa](https://github.com/ShampaShaw)
+* **Shreyas Pathak** - *Improvement & Optimization* - [Shreyas](https://github.com/shreyaspathak11)
+  
